@@ -16,7 +16,7 @@ coins = filterdCoins.keys()
 
 
 def findBTCrev(d1):
-    return (d1) * 10000
+    return (d1)
 
 
 for coin in coins:

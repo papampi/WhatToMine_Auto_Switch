@@ -29,11 +29,11 @@ for coin in coins:
 
 #print sorted(filterdCoins.values(), key=lambda d: d['smartProfitability']);
 
-RevSort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability'],reverse=True);
+BTCrevenueSort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability'],reverse=True);
 
 finalCoin = DEFAULT_COIN;
 
-if (len(RevSort) > 1):
-    finalCoin = RevSort[0]
+if (len(BTCrevenueSort) > 1):
+    finalCoin = BTCrevenueSort[0]
 
 print finalCoin['tag'];

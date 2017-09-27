@@ -1,39 +1,40 @@
 #!/usr/bin/env python2.7
 import requests;
 
-DEFAULT_COIN = {'tag': "DUAL_SOIL_PASC"};
+DEFAULT_COIN = {'tag': "ZEC"};
 
-r = requests.get("http://whattomine.com/coins.json");
-coinsData = r.json()['coins'];
+data = requests.get("https://whattomine.com/coins.json");
+coinsData = data.json()['coins'];
 coins = coinsData.keys();
-lowDifficulty = {};
+highBTCrev = {};
 
-excludeTags = ['NICEHASH', 'KRB', 'XDN', 'SIB']
+includeTags = [ 'HUSH', 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'XDN', 'LBC'  ]
 
-filterdCoins = {k: v for k, v in coinsData.iteritems() if v['tag'] not in excludeTags}
+filterdCoins = {k: v for k, v in coinsData.iteritems() if v['tag']  in includeTags}
 coins = filterdCoins.keys()
 # print len(filterdCoins)
 
-
-def findDifficulty(d1, d2):
-    return ((d1 - d2) / ((d1 + d2) / 2)) * 100
-
+def findBTCrev(d1):
+    return (d1)
 
 for coin in coins:
     coinObj = coinsData[coin]
-    coinObj['smartProfitability'] = findDifficulty(coinObj['difficulty'], coinObj['difficulty24'])
-    lowDifficulty[coin] = coinObj
+    coinObj['smartProfitability'] = findBTCrev(coinObj['btc_revenue'])
+    highBTCrev[coin] = coinObj
 
-# for k in lowDifficulty:
-#     print lowDifficulty[k]['tag'], ' - ', lowDifficulty[k]['smartProfitability']
+for k in highBTCrev:
+    print highBTCrev[k]['tag'], ' - ', highBTCrev[k]['smartProfitability']
+log=open("current-profit", "w")
+log.write(highBTCrev[k]['tag']+ ' - '+ highBTCrev[k]['smartProfitability'])
+log.close()
 
-# print sorted(filterdCoins.values(), key=lambda d: d['smartProfitability']);
+#print sorted(filterdCoins.values(), key=lambda d: d['smartProfitability']);
 
-difficultySort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability']);
+BTCrevenueSort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability'],reverse=True);
 
 finalCoin = DEFAULT_COIN;
 
-if (len(difficultySort) > 1):
-    finalCoin = difficultySort[0]
+if (len(BTCrevenueSort) > 1):
+    finalCoin = BTCrevenueSort[0]
 
 print finalCoin['tag'];

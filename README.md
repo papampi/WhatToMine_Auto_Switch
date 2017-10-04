@@ -40,11 +40,13 @@ Click calculate, then add .json to coins at the begining of the address after yo
  
 Copy the whole address and paste it to WTM_AUTO_SWITCH.py replace the default address:
 
-```data = requests.get("https://whattomine.com/coins.json");
+```
+data = requests.get("https://whattomine.com/coins.json");
 ```
 Set the coins you want to be switched in WTM_AUTO_SWITCH.py in the included tags :
 
-```includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]
+```
+includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]
 ```
 
 Now you can start wtm auto switch with 

@@ -37,12 +37,6 @@ Go to [url=https://whattomine.com/coins]whattomine[/url] select your cards, hash
 You can also select to mine base on current, 24 hour, 3 day or a week profit and difficulty. 
 Dont forget to choose same for both profit and difficulty or it will give wrong results.
 Click calculate, then add .json to coins at the begining of the address after you click calculate!!!
-From:
-```https://whattomine.com/coins?utf8=✓&adapt_q_280x=0....
-```
-To: 
-```https://whattomine.com/coins.json?utf8=✓&adapt_q_280x=0&adapt_q_380=0&adapt_q_fury=0&adapt_q
-```
  
 Copy the whole address and paste it to WTM_AUTO_SWITCH.py replace the default address:
 

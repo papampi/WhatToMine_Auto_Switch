@@ -11,8 +11,9 @@ Edit /home/m1/1bash and add :
 WTM_AUTO_SWITCH="YES"
 WTM_AUTO_SWITCH_SYNC_INTERVAL="3" # Time to sync with WTM for best coin
 #WTM_AUTO_SWITCH_URL="FOR NOW EDIT IT IN WTM_AUTO_SWITCH.py
-#WTM_AUTO_SWITCH_COINS=" FOR NOW EDIT IT IN WTM_AUTO_SWITCH.py > includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]```
+#WTM_AUTO_SWITCH_COINS=" FOR NOW EDIT IT IN WTM_AUTO_SWITCH.py > includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]
 #WTM_AUTO_SWITCH_diff="TO BE ADDED IN NEXT VERSIONS"  # PERCENTAGE TO CHANGE IF TOP COIN IS HIGHER THAN CURRENT COIN 
+```
 
 Edit /home/m1/3main and add these lines somewhere  after Maxximus007_AUTO_TEMPERATURE_CONTROL ( easier to find "SALFTER_NICEHASH_PROFIT_SWITCHING" and add before it:
 ```

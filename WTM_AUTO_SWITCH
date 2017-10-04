@@ -2,6 +2,16 @@
 source ~/1bash
 BITCOIN="theGROUND"
 
+# Creating a log file to record coin switch 
+LOG_FILE="/home/m1/8_wtmautoswitchlog"
+
+if [ -e "$LOG_FILE" ] ; then
+  #Limit the logfile, just keep the last 2K
+  LASTLOG=$(tail -n 2K $LOG_FILE)
+  echo "$LASTLOG"
+  echo ""
+fi
+
 while [ $BITCOIN == "theGROUND" ]
 do
 

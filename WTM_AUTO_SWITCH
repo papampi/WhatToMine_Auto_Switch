@@ -1,4 +1,6 @@
 #!/bin/bash
+#### Whattomine auto switch bash script written by papampi
+
 source ~/1bash
 BITCOIN="theGROUND"
 
@@ -14,7 +16,8 @@ fi
 
 while [ $BITCOIN == "theGROUND" ]
 do
-python2.7 WTM_AUTO_SWITCH.py &&
+
+python2.7 WTM_AUTO_SWITCH.py 
 sleep 5
 
 CURRENT_COIN=$(head -n 150 /home/m1/1bash | grep COIN= | sed 's/COIN=//' | sed 's/\"//' | sed 's/\"//')
@@ -25,23 +28,19 @@ TIMEOUT=$(($TIMEIN * 60))
 if [ "$CURRENT_COIN" != "$TOP_COIN" ]
 then 
 sed -i 's/'COIN=\"$CURRENT_COIN\"'/'COIN=\"$TOP_COIN\"/'' /home/m1/1bash
+sleep 1
 pkill -e screen
 pkill -f 3main
 echo ""
-echo "$(date) Mining updated from $CURRENT_COIN to $TOP_COIN and restarted, check again in $TIMEOUT seconds"
+echo "$(date) Mining switched from $CURRENT_COIN to $TOP_COIN" | tee -a ${LOG_FILE}
+echo "Check again in $TIMEOUT seconds" #| tee -a ${LOG_FILE}
 sleep $TIMEOUT
-echo ""
 
 else
-echo "$(date) Same Coin on Top, Continue mining $CURRENT_COIN"
-echo "Check again in $TIMEOUT seconds"
+echo ""
+echo "$(date) Same Coin on Top, Continue mining $CURRENT_COIN" | tee -a ${LOG_FILE}
+echo "Check again in $TIMEOUT seconds" #| tee -a ${LOG_FILE}
 sleep $TIMEOUT
 
 fi
 done
-
-
-
-
-
-

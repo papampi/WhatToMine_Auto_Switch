@@ -1,5 +1,7 @@
 #!/usr/bin/env python2.7
 #_*_ coding: utf-8 _*_
+#### damNmad+papampi Whattomine auto switch written by papampi, forked from smartminer by damNmad
+
 import requests;
 
 

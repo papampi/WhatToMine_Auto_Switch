@@ -1,5 +1,5 @@
 #!/bin/bash
-#### damNmad+papampi Whattomine auto switch written by papampi, forked from smartminer by damNmad
+#### Whattomine auto switch helper written by papampi
 
 source ~/1bash
 BITCOIN="theGROUND"

@@ -1,10 +1,10 @@
 #!/bin/bash
-#### Whattomine auto switch helper written by papampi
 
 source ~/1bash
+
 BITCOIN="theGROUND"
 
-# Creating a log file to record coin switch 
+# Creating a log file to record coin switch
 LOG_FILE="/home/m1/8_wtmautoswitchlog"
 
 if [ -e "$LOG_FILE" ] ; then
@@ -16,15 +16,12 @@ fi
 
 while [ $BITCOIN == "theGROUND" ]
 do
-
-python2.7 WTM_AUTO_SWITCH.py 
+python2.7 '/home/m1/WTM_AUTO_SWITCH' /home/m1/WTM.json
 sleep 5
-
 CURRENT_COIN=$(head -n 150 /home/m1/1bash | grep COIN= | sed 's/COIN=//' | sed 's/\"//' | sed 's/\"//')
 TOP_COIN=$(cat /home/m1/top_coin)
 TIMEIN=$WTM_AUTO_SWITCH_SYNC_INTERVAL
 TIMEOUT=$(($TIMEIN * 60))
-
 if [ "$CURRENT_COIN" != "$TOP_COIN" ]
 then 
 sed -i 's/'COIN=\"$CURRENT_COIN\"'/'COIN=\"$TOP_COIN\"/'' /home/m1/1bash
@@ -35,12 +32,10 @@ echo ""
 echo "$(date) Mining switched from $CURRENT_COIN to $TOP_COIN" | tee -a ${LOG_FILE}
 echo "Check again in $TIMEOUT seconds" #| tee -a ${LOG_FILE}
 sleep $TIMEOUT
-
 else
 echo ""
 echo "$(date) Same Coin on Top, Continue mining $CURRENT_COIN" | tee -a ${LOG_FILE}
 echo "Check again in $TIMEOUT seconds" #| tee -a ${LOG_FILE}
 sleep $TIMEOUT
-
 fi
 done

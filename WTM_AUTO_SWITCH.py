@@ -1,51 +1,100 @@
 #!/usr/bin/env python2.7
-#_*_ coding: utf-8 _*_
-#### damNmad+papampi Whattomine auto switch written by papampi, forked from smartminer by damNmad
+# _*_ coding: utf-8 _*_
+#### damNmad+papampi+hurvajs77 Whattomine auto switch written by papampi + hurvajs77, forked from smartminer by damNmad
 
-import requests;
-
-import sys
-import os
 import json
-cfg=json.loads(open(sys.argv[1]).read())
+import requests
+import sys
+import urllib
 
-coin_list=cfg["WTM_URL"]
+configFile = "./WTM.json"
+topCoinLogFile = "./WTM_top_coin"
 
-includeTags=cfg["WTM_COINS"]
+# load config
+cfg = json.loads(open(configFile).read())
+requestUrl = urllib.unquote(urllib.unquote(cfg["WTM_URL"]))
+minimumDifference = float(cfg["WTM_MIN_DIFFERENCE"])
+includedCoins = cfg["WTM_COINS"].upper()
+delimiter = ";"
+# load included coins
+includedCoins = includedCoins.strip(delimiter)
 
-#data = requests.get("https://whattomine.com/coins.json");
+if not includedCoins:
+    print "No incluted coins. Please, check 1bash script for WTM settings."
+    sys.exit()
 
-#coin_list = os.environ["WTM_URL"]
+includedCoins = includedCoins.split(delimiter)
 
-data = requests.get(coin_list);
 
-coinsData = data.json()['coins'];
-coins = coinsData.keys();
-highBTCrev = {};
+def saveTopCoin(data):
+    logFile = open(topCoinLogFile, "w")
+    logFile.write(data)
+    logFile.close()
+    return
 
-#includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]
-#includeTags = os.environ["WTM_COINS"]
+# try load previous top coin
+try:
+    with open(topCoinLogFile) as contentFile:
+        content = contentFile.read()
+except:
+    content = "-:0"
 
-filterdCoins = {k: v for k, v in coinsData.iteritems() if v['tag']  in includeTags}
-coins = filterdCoins.keys()
-# print len(filterdCoins)
+topCoin = content.split(":")
+print "Currently mining coin: %s, profit: %s" % (topCoin[0], topCoin[1])
 
-def findBTCrev(d1):
-    return (d1)
+try:
+    httpResponse = requests.get(requestUrl)
+except:
+    print("Can not get data from WhatToMine.com.")
+    raise
 
-for coin in coins:
-    coinObj = coinsData[coin]
-    coinObj['smartProfitability'] = findBTCrev(coinObj['btc_revenue'])
-    highBTCrev[coin] = coinObj
+try:
+    data = httpResponse.json()['coins']
+    data = data.values()
+except:
+    print "Invalid JSON"
+    raise
 
-for k in highBTCrev:
-    print highBTCrev[k]['tag'], ' - ', highBTCrev[k]['smartProfitability']
+# filter WTM coins by user selection only
+for i in reversed(data):
+    if i["tag"] not in includedCoins:
+        data.remove(i)
 
-BTCrevenueSort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability'],reverse=True);
+# calculate coin profitability
+newProfits = {}
+for i in data:
+    newProfits[i["tag"]] = i["btc_revenue"]
+newProfits = sorted(newProfits.items(), key=lambda x: x[1], reverse=True)
 
-if (len(BTCrevenueSort) > 1):
-    finalCoin = BTCrevenueSort[0]
+# save current profit
+print "New profits"
+profitLog = open("current-profit", "w")
+for i, j in newProfits:
+    profitLog.write("%s:%s\n" % (i, j))
+    print i + ": " + j + " BTC"
+profitLog.close()
 
-log=open("top_coin", "w")
-log.write(finalCoin['tag'])
-log.close()
+# is currently mining coin same as a new the most profitability coin?
+if newProfits[0][0] == topCoin[0]:
+    print "Same coin"
+    saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
+    sys.exit()
+
+if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
+    # try find actual top coin and compare their profit with maximum of current profits
+    try:
+        topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]
+        if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["btc_revenue"]):
+            print "Currently mining %s coin is no longer profitability %s" % (topCoin[0], topCoin[1])
+            print "Switching to new %s coin %s" % (newProfits[0][0], newProfits[0][1])
+        else:
+            print "Currently mining coin is still more profitability (with subtracted difference) than new profit coin"
+            print "Continuing with mining %s coin" % topCoin[0]
+    except:
+        print "Top coin was not found in list of included coins"
+        sys.exit()
+else:
+    # current profit is higher that currently mining
+    print "Found %s coin with higher profitability %s" % (newProfits[0][0], newProfits[0][1])
+
+saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])

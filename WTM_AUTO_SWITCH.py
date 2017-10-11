@@ -77,7 +77,7 @@ profitLog.close()
 # is currently mining coin same as a new the most profitability coin?
 if newProfits[0][0] == topCoin[0]:
     print "Same coin"
-    saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
+    saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))
     sys.exit()
 
 if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
@@ -97,4 +97,4 @@ else:
     # current profit is higher that currently mining
     print "Found %s coin with higher profitability %s" % (newProfits[0][0], newProfits[0][1])
 
-saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
+saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))

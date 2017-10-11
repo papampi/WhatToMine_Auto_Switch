@@ -97,4 +97,4 @@ else:
     # current profit is higher that currently mining
     print "Found %s coin with higher profitability %s" % (newProfits[0][0], newProfits[0][1])
 
-saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))
+    saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))

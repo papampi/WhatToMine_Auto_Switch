@@ -80,20 +80,23 @@ if newProfits[0][0] == topCoin[0]:
     saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
     sys.exit()
 
-if float(newProfits[0][1]) < (float(topCoin[1]) + minimumDifference):
+if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
     # try find actual top coin and compare their profit with maximum of current profits
     try:
-        topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]["btc_revenue"]
-        if (float(topCoinNewProfit) + minimumDifference) < float(newProfits[0][1]):
-            print "Currently mining %s coin is no longer profitability" % topCoin[0]
-            print "Switching to new %s coin" % newProfits[0][0]
+        topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]
+        if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["btc_revenue"]):
+            print "Currently mining %s coin is no longer profitability %s" % (topCoin[0], topCoin[1])
+            print "Switching to new %s coin %s" % (newProfits[0][0], newProfits[0][1])
+        else:
+            print "Currently mining coin is still more profitability (with subtracted difference) than new profit coin"
+            print "Continuing with mining %s coin" % topCoin[0]
     except:
         print "Top coin was not found in list of included coins"
         sys.exit()
+else:
+    # current profit is higher that currently mining
+    print "Found %s coin with higher profitability %s" % (newProfits[0][0], newProfits[0][1])
 
-#else:
-# current profit is higher that currently mining
-print "Found %s coin with higher profitability" % newProfits[0][0]
 saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
 
 

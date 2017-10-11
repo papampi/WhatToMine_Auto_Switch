@@ -68,7 +68,7 @@ newProfits = sorted(newProfits.items(), key=lambda x: x[1], reverse=True)
 
 # save current profit
 print "New profits"
-profitLog = open("current-profit", "w")
+profitLog = open("WTM_current-profit", "w")
 for i, j in newProfits:
     profitLog.write("%s:%s\n" % (i, j))
     print str(i) + ": " + str(j) + " %"
@@ -87,6 +87,7 @@ if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
         if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["profitability"]):
             print "Currently mining %s coin is no longer profitability %s" % (topCoin[0], topCoin[1])
             print "Switching to new %s coin %s" % (newProfits[0][0], newProfits[0][1])
+
         else:
             print "Currently mining coin is still more profitability (with subtracted difference) than new profit coin"
             print "Continuing with mining %s coin" % topCoin[0]
@@ -97,4 +98,4 @@ else:
     # current profit is higher that currently mining
     print "Found %s coin with higher profitability %s" % (newProfits[0][0], newProfits[0][1])
 
-    saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))
+saveTopCoin(str(newProfits[0][0]) + ":" + str(newProfits[0][1]))

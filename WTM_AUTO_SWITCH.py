@@ -1,39 +1,142 @@
 #!/usr/bin/env python2.7
-#_*_ coding: utf-8 _*_
-#### damNmad+papampi Whattomine auto switch written by papampi, forked from smartminer by damNmad
+# _*_ coding: utf-8 _*_
+#### damNmad+papampi+hurvajs77 Whattomine auto switch written by papampi + hurvajs77, forked from smartminer by damNmad
 
-import requests;
+import json
+import requests
+import sys
+import urllib
+
+configFile = "./WTM.json"
+topCoinLogFile = "./WTM_top_coin"
+
+# load config
+cfg = json.loads(open(configFile).read())
+requestUrl = urllib.unquote(urllib.unquote(cfg["WTM_URL"]))
+minimumDifference = float(cfg["WTM_MIN_DIFFERENCE"])
+includedCoins = cfg["WTM_COINS"].upper()
+delimiter = ";"
+# load included coins
+includedCoins = includedCoins.strip(delimiter)
+
+if not includedCoins:
+    print "No incluted coins. Please, check 1bash script for WTM settings."
+    sys.exit()
+
+includedCoins = includedCoins.split(delimiter)
 
 
-data = requests.get("https://whattomine.com/coins.json?utf8=✓&adapt_q_280x=0&adapt_q_380=0&adapt_q_fury=0&adapt_q_470=0&adapt_q_480=3&adapt_q_570=0&adapt_q_580=0&adapt_q_750Ti=0&adapt_q_10606=1&adapt_q_1070=6&adapt_1070=true&adapt_q_1080=1&adapt_q_1080Ti=1&eth=true&factor%5Beth_hr%5D=180.0&factor%5Beth_p%5D=720.0&grof=true&factor%5Bgro_hr%5D=213.0&factor%5Bgro_p%5D=780.0&x11gf=true&factor%5Bx11g_hr%5D=69.0&factor%5Bx11g_p%5D=720.0&cn=true&factor%5Bcn_hr%5D=3000.0&factor%5Bcn_p%5D=600.0&eq=true&factor%5Beq_hr%5D=2580.0&factor%5Beq_p%5D=720.0&lre=true&factor%5Blrev2_hr%5D=213000.0&factor%5Blrev2_p%5D=780.0&ns=true&factor%5Bns_hr%5D=6300.0&factor%5Bns_p%5D=930.0&lbry=true&factor%5Blbry_hr%5D=1620.0&factor%5Blbry_p%5D=720.0&bk2bf=true&factor%5Bbk2b_hr%5D=9600.0&factor%5Bbk2b_p%5D=720.0&bk14=true&factor%5Bbk14_hr%5D=15000.0&factor%5Bbk14_p%5D=750.0&pas=true&factor%5Bpas_hr%5D=5640.0&factor%5Bpas_p%5D=720.0&skh=true&factor%5Bskh_hr%5D=159.0&factor%5Bskh_p%5D=720.0&factor%5Bl2z_hr%5D=420.0&factor%5Bl2z_p%5D=300.0&factor%5Bcost%5D=0.0&sort=Profit&volume=0&revenue=current&factor%5Bexchanges%5D%5B%5D=&factor%5Bexchanges%5D%5B%5D=bittrex&factor%5Bexchanges%5D%5B%5D=bleutrade&factor%5Bexchanges%5D%5B%5D=bter&factor%5Bexchanges%5D%5B%5D=c_cex&factor%5Bexchanges%5D%5B%5D=cryptopia&factor%5Bexchanges%5D%5B%5D=poloniex&factor%5Bexchanges%5D%5B%5D=yobit&dataset=Main&commit=Calculate");
+def saveTopCoin(data):
+    logFile = open(topCoinLogFile, "w")
+    logFile.write(data)
+    logFile.close()
+    return
 
-coinsData = data.json()['coins'];
-coins = coinsData.keys();
-highBTCrev = {};
+# try load previous top coin
+try:
+    with open(topCoinLogFile) as contentFile:
+        content = contentFile.read()
+except:
+    content = "-:0"
 
-includeTags = [ 'ZEC', 'ZEN', 'ZCL', 'SIB' , 'LBC'  ]
+topCoin = content.split(":")
+print "Currently mining coin: %s, profit: %s" % (topCoin[0], topCoin[1])
 
-filterdCoins = {k: v for k, v in coinsData.iteritems() if v['tag']  in includeTags}
-coins = filterdCoins.keys()
-# print len(filterdCoins)
+try:
+    httpResponse = requests.get(requestUrl)
+except:
+    print("Can not get data from WhatToMine.com.")
+    raise
 
-def findBTCrev(d1):
-    return (d1)
+try:
+    data = httpResponse.json()['coins']
+    data = data.values()
+except:
+    print "Invalid JSON"
+    raise
 
-for coin in coins:
-    coinObj = coinsData[coin]
-    coinObj['smartProfitability'] = findBTCrev(coinObj['btc_revenue'])
-    highBTCrev[coin] = coinObj
+# filter WTM coins by user selection only
+for i in reversed(data):
+    if i["tag"] not in includedCoins:
+        data.remove(i)
 
-for k in highBTCrev:
-    print highBTCrev[k]['tag'], ' - ', highBTCrev[k]['smartProfitability']
+# calculate coin profitability
+newProfits = {}
+for i in data:
+    newProfits[i["tag"]] = i["btc_revenue"]
+newProfits = sorted(newProfits.items(), key=lambda x: x[1], reverse=True)
 
-BTCrevenueSort = sorted(filterdCoins.values(), key=lambda d: d['smartProfitability'],reverse=True);
+# save current profit
+print "New profits"
+profitLog = open("current-profit", "w")
+for i, j in newProfits:
+    profitLog.write("%s:%s\n" % (i, j))
+    print i + ": " + j + " BTC"
+profitLog.close()
 
-if (len(BTCrevenueSort) > 1):
-    finalCoin = BTCrevenueSort[0]
+# is currently mining coin same as a new the most profitability coin?
+if newProfits[0][0] == topCoin[0]:
+    print "Same coin"
+    saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
+    sys.exit()
 
-log=open("top_coin", "w")
-log.write(finalCoin['tag'])
-log.close()
+if float(newProfits[0][1]) < (float(topCoin[1]) + minimumDifference):
+    # try find actual top coin and compare their profit with maximum of current profits
+    try:
+        topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]["btc_revenue"]
+        if (float(topCoinNewProfit) + minimumDifference) < float(newProfits[0][1]):
+            print "Currently mining %s coin is no longer profitability" % topCoin[0]
+            print "Switching to new %s coin" % newProfits[0][0]
+    except:
+        print "Top coin was not found in list of included coins"
+        sys.exit()
 
+#else:
+# current profit is higher that currently mining
+print "Found %s coin with higher profitability" % newProfits[0][0]
+saveTopCoin(newProfits[0][0] + ":" + newProfits[0][1])
+
+
+
+# algo_log = open(algoLogFile, "a")
+# algo_log.write(
+#    str(datetime.datetime.now()) + ": " + max_profit["coin_name"] + " (" +
+#    max_profit["algo"] + ")\n")
+# algo_log.close()
+
+
+# coins = {coinName: coinData for coinName, coinData in data.iteritems() if
+#         coinData['tag'] in includedCoins}
+
+
+# coinsData = data.json()['coins']
+# coins = coinsData.keys()
+# highBTCrev = {}
+
+# filteredCoins = {k: v for k, v in coinsData.iteritems() if
+#                 v['tag'] in includeTags}.keys()
+
+
+# print len(filteredCoins)
+
+# def findBTCrev(d1):
+#    return (d1)
+
+
+# for coin in filteredCoins:
+#    coinObj = coinsData[coin]
+#    coinObj['smartProfitability'] = findBTCrev(coinObj['btc_revenue'])
+#    highBTCrev[coin] = coinObj
+
+# for k in highBTCrev:
+#    print highBTCrev[k]['tag'], ' - ', highBTCrev[k]['smartProfitability']
+
+# BTCrevenueSort = sorted(filteredCoins.values(),
+#                        key=lambda d: d['smartProfitability'], reverse=True)
+
+# if (len(BTCrevenueSort) > 1):
+#    finalCoin = BTCrevenueSort[0]
+
+# log = open("WTM_top_coin", "w")
+# log.write(finalCoin['tag'])
+# log.close()

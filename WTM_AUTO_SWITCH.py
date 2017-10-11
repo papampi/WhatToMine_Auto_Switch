@@ -63,7 +63,7 @@ for i in reversed(data):
 # calculate coin profitability
 newProfits = {}
 for i in data:
-    newProfits[i["tag"]] = i["btc_revenue"]
+    newProfits[i["tag"]] = i["profitability"]
 newProfits = sorted(newProfits.items(), key=lambda x: x[1], reverse=True)
 
 # save current profit
@@ -71,7 +71,7 @@ print "New profits"
 profitLog = open("current-profit", "w")
 for i, j in newProfits:
     profitLog.write("%s:%s\n" % (i, j))
-    print i + ": " + j + " BTC"
+    print str(i) + ": " + str(j) + " %"
 profitLog.close()
 
 # is currently mining coin same as a new the most profitability coin?
@@ -84,7 +84,7 @@ if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
     # try find actual top coin and compare their profit with maximum of current profits
     try:
         topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]
-        if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["btc_revenue"]):
+        if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["profitability"]):
             print "Currently mining %s coin is no longer profitability %s" % (topCoin[0], topCoin[1])
             print "Switching to new %s coin %s" % (newProfits[0][0], newProfits[0][1])
         else:

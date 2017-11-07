@@ -1,12 +1,15 @@
 #!/usr/bin/env python2.7
 # _*_ coding: utf-8 _*_
-#### damNmad+papampi+hurvajs77 Whattomine auto switch written by papampi + hurvajs77, forked from smartminer by damNmad
+#### Whattomine auto switch written by papampi + hurvajs77 + damNmad , forked from smartminer by damNmad
+### papampi BTC address:  1NsnsnqkkVuopTGvUSGrkMhhug8kg6zgP9
+### damNmad BTC address:  1Mtf6K7c3ZhBDcPz91c4wcQ95DxLn88zC
+### hurvajs77 BTC address:  3NRMRn3ZKrxwQqkwPfEsjb14dkVDWobyBC
 
 import json
 import requests
 import sys
 import urllib
-
+import urllib2
 configFile = "./WTM.json"
 topCoinLogFile = "./WTM_top_coin"
 
@@ -16,6 +19,8 @@ requestUrl = urllib.unquote(urllib.unquote(cfg["WTM_URL"]))
 minimumDifference = float(cfg["WTM_MIN_DIFFERENCE"])
 includedCoins = cfg["WTM_COINS"].upper()
 delimiter = ";"
+currency=cfg["currency"]
+
 # load included coins
 includedCoins = includedCoins.strip(delimiter)
 
@@ -32,6 +37,20 @@ def saveTopCoin(data):
     logFile.close()
     return
 
+#Get BTC exchange rate from blockchain.info
+try:
+    exchrate=float(json.loads(urllib2.urlopen("https://blockchain.info/ticker").read())[currency]["last"])
+except:
+    print("Can not get data from blockchain.info")
+    sys.exit()
+    raise
+
+#BTC Rates for web, output, ...
+print "BTC PRICE: " + str(exchrate) + " " + str(currency)
+exchrateLog = open("WTM_BTC_EXCHANGE_RATE", "w")
+exchrateLog.write(str(exchrate) + " " + str(currency))
+exchrateLog.close()
+
 # try load previous top coin
 try:
     with open(topCoinLogFile) as contentFile:
@@ -46,6 +65,7 @@ try:
     httpResponse = requests.get(requestUrl)
 except:
     print("Can not get data from WhatToMine.com.")
+    sys.exit()
     raise
 
 try:
@@ -53,12 +73,41 @@ try:
     data = data.values()
 except:
     print "Invalid JSON"
+    sys.exit()
     raise
 
 # filter WTM coins by user selection only
 for i in reversed(data):
     if i["tag"] not in includedCoins:
         data.remove(i)
+
+# calculate coin revenue
+#print currency + " Revenue"
+newRev = {}
+for i in data:
+    newRev[i["tag"]] = float(i["btc_revenue"])
+newRev = sorted(newRev.items(), key=lambda x: x[1], reverse=True)
+#save current revenue
+RevLog = open("WTM_current_revenue", "w")
+for i, j in newRev:
+    RevLog.write("%s:%s\n" % (i, '%02.2f' %(j*exchrate) ))
+    print  i, '%02.2f' %(j*exchrate) +" " + currency
+RevLog.close()
+
+# calculate coin revenue
+#newRev = {}
+#for i in data:
+#    newRev[i["tag"]] = i["btc_revenue"]
+#newRev = sorted(newRev.items(), key=lambda x: x[1], reverse=True)
+
+# save current revenue
+#print "New Revenue"
+#RevLog = open("WTM_current_revenue", "w")
+#for i, j in newRev:
+#    RevLog.write("%s:%s\n" % (i, j))
+ #   print i + ": " + j + " BTC"
+#RevLog.close()
+
 
 # calculate coin profitability
 newProfits = {}
@@ -85,11 +134,11 @@ if (float(newProfits[0][1]) - minimumDifference) < float(topCoin[1]):
     try:
         topCoinNewProfit = filter(lambda x: x["tag"] == topCoin[0], data)[0]
         if (float(newProfits[0][1]) - minimumDifference) > float(topCoinNewProfit["profitability"]):
-            print "Currently mining %s coin is no longer profitability %s" % (topCoin[0], topCoin[1])
+            print "Currently mining %s coin is no longer more profitabile with %s" % (topCoin[0], topCoin[1])
             print "Switching to new %s coin %s" % (newProfits[0][0], newProfits[0][1])
         else:
-            print "Currently mining coin is still more profitability (with subtracted difference) than new profit coin"
-            print "Continuing with mining %s coin" % topCoin[0]
+            print "Currently mining coin is still more profitabile (with subtracted difference) than new top coin"
+            print "Continuing mining %s coin" % topCoin[0]
             saveTopCoin(topCoin[0] + ":" + topCoinNewProfit["profitability"])
             sys.exit()
     except:

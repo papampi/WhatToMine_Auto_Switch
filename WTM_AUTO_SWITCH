@@ -39,9 +39,14 @@ sleep 1
 if ps aux | grep -v grep | grep -q wtm-miner
 then
 pkill -f wtm-miner
-#echo "wtm-miner Killed" | tee -a ${LOG_FILE}
+echo "wtm-miner Killed" | tee -a ${LOG_FILE}
 fi
 sleep 1
+
+#MINER_PID=$(ps ax | grep SCREEN | grep miner)
+#if [ -n  "$MINER_PID" ]
+#then
+#echo "miner is running, lets make the switch" | tee -a ${LOG_FILE}
 
 #restart wdog
 #kill $(ps aux | grep '[I]AmNotAJeep_and_Maxximus007_WATCHDOG' | awk '{print $2}')
@@ -52,15 +57,18 @@ echo "$(date)  wdog restarted"
 
 #kill miner
 pkill -e miner
-
 sleep 1
 #start new wtm-miner
-bash wtm-miner &
+bash wtm-miner 
 
 echo ""
 echo "$(date) Mining switched from $CURRENT_COIN to $TOP_COIN" | tee -a ${LOG_FILE}
 echo "Check again in $TIMEOUT seconds" #| tee -a ${LOG_FILE}
+#else
+#echo "miner not running, lets wait" | tee -a ${LOG_FILE}
+#fi
 sleep $TIMEOUT
+
 else
 
 echo ""
@@ -81,4 +89,5 @@ sed -i '/^$/d' /home/m1/WTM_24H_REV
 
 sleep $TIMEOUT
 fi
+
 done

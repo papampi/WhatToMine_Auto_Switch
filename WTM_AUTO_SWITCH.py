@@ -1,3 +1,4 @@
+ cat WTM_AUTO_SWITCH 
 #!/usr/bin/env python2.7
 # _*_ coding: utf-8 _*_
 #### Whattomine auto switch written by papampi + hurvajs77 + damNmad , forked from smartminer by damNmad

@@ -1,6 +1,8 @@
 # WhatToMine Auto Switch for nvOC mining OS
 forked from damNmad smartminer
 
+This how to is old !!!!
+
 Put both WTM_AUTO_SWITCH and WTM_AUTO_SWITCH.py in /home/m1/
 
 

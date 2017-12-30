@@ -1,5 +1,20 @@
-#!/bin/bash/
-###0miner for for nvOC by fullzero , v0019.2 unofficial by papampi
+#!/bin/bash
+
+##########################################################################
+##########################################################################
+#################   nvOC v0019-2.0 - Community Release   #################
+##############        by papampi, Stubo and leenoox         ##############
+##########   Based on the original nvOC v0019-1.4 by fullzero   ##########
+##########################################################################
+##########################################################################
+
+# 0miner for nvOC v0019-2.0 by papampi
+
+# DEV Mod Log:
+# v=0001 : papampi: Initial Release
+
+nvOC_Ver="nvOC v0019-2.0 - Community Release"
+nvOC_0miner_ver="v0019-2.0.0001"   # Do not edit this
 
 source /home/m1/1bash
 
@@ -16,7 +31,7 @@ if [ $COIN == "SMART" ]
 then
   HCD='/home/m1/ASccminer/ccminer'
   ADDR="$SMART_ADDRESS.$SMART_WORKER"
-  screen -dmSL miner $HCD -a keccak -o stratum+tcp://$SMART_POOL:$SMART_PORT -u $ADDR -p x -i $SMART_INTENSITY
+  screen -dmSL miner $HCD -a keccak -o stratum+tcp://$SMART_POOL:$SMART_PORT -u $ADDR -p $MINER_PWD -i $SMART_INTENSITY
 fi
 
 if [ $COIN == "BTG" ]
@@ -37,7 +52,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $BTG_POOL --user $BTGADDR --pass $MINER_PWD --port $BTG_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $BTG_POOL --user $BTGADDR --pass $MINER_PWD --port $BTG_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -64,7 +79,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $ZEC_POOL --user $ZECADDR --pass $MINER_PWD --port $ZEC_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $ZEC_POOL --user $ZECADDR --pass $MINER_PWD --port $ZEC_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -91,7 +106,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $ZCL_POOL --user $ZCLADDR --pass $MINER_PWD --port $ZCL_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $ZCL_POOL --user $ZCLADDR --pass $MINER_PWD --port $ZCL_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -118,7 +133,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $NICE_EQUIHASH_POOL --user $NICE_EQUIHASHADDR --pass $MINER_PWD --port $NICE_EQUIHASH_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $NICE_EQUIHASH_POOL --user $NICE_EQUIHASHADDR --pass $MINER_PWD --port $NICE_EQUIHASH_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -141,7 +156,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmS miner $HCD --server $BTCZ_POOL --user $BTCZADDR --pass $MINER_PWD --port $BTCZ_PORT  $ZM_OPTS ;
+    screen -dmS miner $HCD --server $BTCZ_POOL --user $BTCZADDR --pass $MINER_PWD --port $BTCZ_PORT  --time $ZM_OPTS ;
   fi
   if [ $ZM_or_EWBF == "EWBF" ]
   then
@@ -167,7 +182,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $KMD_POOL --user $KMDADDR --pass $MINER_PWD --port $KMD_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $KMD_POOL --user $KMDADDR --pass $MINER_PWD --port $KMD_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -193,7 +208,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $ZEN_POOL --user $ZENADDR --pass $MINER_PWD --port $ZEN_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $ZEN_POOL --user $ZENADDR --pass $MINER_PWD --port $ZEN_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -220,7 +235,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $HUSH_POOL --user $HUSHADDR --pass $MINER_PWD --port $HUSH_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $HUSH_POOL --user $HUSHADDR --pass $MINER_PWD --port $HUSH_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -247,7 +262,7 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $MPH_EQUIHASH_POOL --user $MPHADDR --pass $MINER_PWD --port $MPH_EQUIHASH_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $MPH_EQUIHASH_POOL --user $MPHADDR --pass $MINER_PWD --port $MPH_EQUIHASH_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
@@ -272,72 +287,69 @@ then
   if [ $ZM_or_EWBF == "ZM" ]
   then
     HCD='/home/m1/zec/zm/latest/zm_miner'
-    screen -dmSL miner $HCD --server $ZPOOL_EQUIHASH_POOL --user $BTC_ADDRESS --pass $ZPOOLPASS --port $ZPOOL_EQUIHASH_PORT  $ZM_OPTS ;
+    screen -dmSL miner $HCD --server $ZPOOL_EQUIHASH_POOL --user $BTC_ADDRESS --pass $MINER_PWD --port $ZPOOL_EQUIHASH_PORT  --time $ZM_OPTS ;
   fi
 
   if [ $ZM_or_EWBF == "EWBF" ]
   then
-    screen -dmSL miner $HCD --eexit 3 --fee $EWBF_PERCENT --pec --server $ZPOOL_EQUIHASH_POOL --user $BTC_ADDRESS --pass $ZPOOLPASS --port $ZPOOL_EQUIHASH_PORT  $EWBF_OPTS ;
+    screen -dmSL miner $HCD --eexit 3 --fee $EWBF_PERCENT --pec --server $ZPOOL_EQUIHASH_POOL --user $BTC_ADDRESS --pass $MINER_PWD --port $ZPOOL_EQUIHASH_PORT  $EWBF_OPTS ;
   fi
 fi
 
 if [ $COIN == "ZCOIN" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
-
   ADDR="$ZCOIN_ADDRESS.$ZCOIN_WORKER"
-
-  screen -dmSL miner $HCD -a lyra2z -o stratum+tcp://$ZCOIN_POOL:$ZCOIN_PORT -u $ADDR -p x
+  screen -dmSL miner $HCD -a lyra2z -o stratum+tcp://$ZCOIN_POOL:$ZCOIN_PORT -u $ADDR -p $MINER_PWD
 fi
 
 if [ $COIN == "BTX" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$BTX_ADDRESS.$BTX_WORKER"
-
-  screen -dmSL miner $HCD -a timetravel10 -o stratum+tcp://$BTX_POOL:$BTX_PORT -u $ADDR -p x -i $BTX_INTENSITY
+  screen -dmSL miner $HCD -a timetravel10 -o stratum+tcp://$BTX_POOL:$BTX_PORT -u $ADDR -p $MINER_PWD -i $BTX_INTENSITY
 fi
 
 if [ $COIN == "ZPOOL_LYRA2V2" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
-
-  screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$ZPOOL_LYRA2V2_POOL:$ZPOOL_LYRA2V2_PORT -u $BTC_ADDRESS -p $ZPOOLPASS -i $ZPOOL_LYRA2V2_INTENSITY
+  screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$ZPOOL_LYRA2V2_POOL:$ZPOOL_LYRA2V2_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $ZPOOL_LYRA2V2_INTENSITY
 fi
 
 if [ $COIN == "ZPOOL_LBRY" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
-
-  screen -dmSL miner $HCD -a lbry -o stratum+tcp://$ZPOOL_LBRY_POOL:$ZPOOL_LBRY_PORT -u $BTC_ADDRESS -p $ZPOOLPASS -i $ZPOOL_LBRY_INTENSITY
+  screen -dmSL miner $HCD -a lbry -o stratum+tcp://$ZPOOL_LBRY_POOL:$ZPOOL_LBRY_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $ZPOOL_LBRY_INTENSITY
 fi
 
 if [ $COIN == "ZPOOL_NEOSCRYPT" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
-
-  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$ZPOOL_NEOSCRYPT_POOL:$ZPOOL_NEOSCRYPT_PORT -u $BTC_ADDRESS -p $ZPOOLPASS -i $ZPOOL_NEOSCRYPT_INTENSITY
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$ZPOOL_NEOSCRYPT_POOL:$ZPOOL_NEOSCRYPT_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $ZPOOL_NEOSCRYPT_INTENSITY
 fi
 
 if [ $COIN == "ZPOOL_SKEIN" ]
 then
   HCD='/home/m1/ASccminer/ccminer'
-
-  screen -dmSL miner $HCD -a skein -o stratum+tcp://$ZPOOL_SKEIN_POOL:$ZPOOL_SKEIN_PORT -u $BTC_ADDRESS -p $ZPOOLPASS -i $ZPOOL_SKEIN_INTENSITY
+  screen -dmSL miner $HCD -a skein -o stratum+tcp://$ZPOOL_SKEIN_POOL:$ZPOOL_SKEIN_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $ZPOOL_SKEIN_INTENSITY
 fi
 
 if [ $COIN == "ZPOOL_BLAKE2S" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
+  screen -dmSL miner $HCD -a blake2s -o stratum+tcp://$ZPOOL_BLAKE2S_POOL:$ZPOOL_BLAKE2S_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $ZPOOL_BLAKE2S_INTENSITY
+fi
 
-  screen -dmSL miner $HCD -a blake2s -o stratum+tcp://$ZPOOL_BLAKE2S_POOL:$ZPOOL_BLAKE2S_PORT -u $BTC_ADDRESS -p $ZPOOLPASS -i $ZPOOL_BLAKE2S_INTENSITY
+if [ $COIN == "ZPOOL_SKUNK" ]
+then
+  HCD='/home/m1/TPccminer/ccminer'
+  screen -dmSL miner $HCD -a skunk -o stratum+tcp://$SKUNK_POOL:$SKUNK_PORT -u $BTC_ADDRESS -p $MINER_PWD -i $SKUNK_INTENSITY
 fi
 
 if [ $COIN == "MONA" ]
 then
-  HCD='/home/m1/SPccminer/ccminer'
+  HCD='/home/m1/ASccminer/ccminer'
   ADDR="$MONA_ADDRESS.$MONA_WORKER"
-
   screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$MONA_POOL:$MONA_PORT -u $ADDR -p $MINER_PWD -i $MONA_INTENSITY
 fi
 
@@ -345,134 +357,113 @@ if [ $COIN == "DMD" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$DMD_ADDRESS.$DMD_WORKER"
-
-  screen -dmSL miner $HCD -a dmd-gr -o stratum+tcp://$DMD_POOL:$DMD_PORT -u $ADDR -p x
+  screen -dmSL miner $HCD -a dmd-gr -o stratum+tcp://$DMD_POOL:$DMD_PORT -u $ADDR -p $MINER_PWD
 fi
 
 if [ $COIN == "GRS" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$GRS_ADDRESS.$GRS_WORKER"
-
-  screen -dmSL miner $HCD -a groestl -o stratum+tcp://$GRS_POOL:$GRS_PORT -u $ADDR -p x
+  screen -dmSL miner $HCD -a groestl -o stratum+tcp://$GRS_POOL:$GRS_PORT -u $ADDR -p $MINER_PWD
 fi
 
 if [ $COIN == "XMY" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$XMY_ADDRESS.$XMY_WORKER"
-
-  screen -dmSL miner $HCD -a myr-gr -o stratum+tcp://$XMY_POOL:$XMY_PORT -u $ADDR -p x -i $XMY_INTENSITY
+  screen -dmSL miner $HCD -a myr-gr -o stratum+tcp://$XMY_POOL:$XMY_PORT -u $ADDR -p $MINER_PWD -i $XMY_INTENSITY
 fi
 
 if [ $COIN == "VTC" ]
 then
-  HCD='/home/m1/SPccminer/ccminer'
+  HCD='/home/m1/ASccminer/ccminer'
   ADDR="$VTC_ADDRESS.$VTC_WORKER"
-
-  if [ $VTC_AUTOCONVERT_TO_BTC == "YES" ]
-  then
-    ADDR="$BTC_ADDRESS.$VTC_WORKER"
-
-    screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$VTC_POOL:$VTC_PORT -u $ADDR -p c=BTC
-  fi
-  if [ $VTC_AUTOCONVERT_TO_BTC == "NO" ]
-  then
-
-    screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$VTC_POOL:$VTC_PORT -u $ADDR -p c=VTC -i $VTC_INTENSITY
-  fi
+  screen -dmSL miner $HCD -a lyra2v2 -o stratum+tcp://$VTC_POOL:$VTC_PORT -u $ADDR -p $MINER_PWD -i $VTC_INTENSITY
 fi
 
 if [ $COIN == "DGB" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$DGB_ADDRESS"
-
-  if [ $DGB_AUTOCONVERT_TO_BTC == "YES" ]
-  then
-    ADDR="$BTC_ADDRESS"
-
-    screen -dmSL miner $HCD -a skein -o stratum+tcp://$DGB_POOL:$DGB_PORT -u $ADDR -p c=BTC -i $DGB_INTENSITY
-  fi
-  if [ $DGB_AUTOCONVERT_TO_BTC == "NO" ]
-  then
-
-    screen -dmSL miner $HCD -a skein -o stratum+tcp://$DGB_POOL:$DGB_PORT -u $ADDR -p c=DGB -i $DGB_INTENSITY
-  fi
-fi
-
-if [ $COIN == "ZPOOL_SKUNK" ]
-then
-  HCD='/home/m1/TPccminer/ccminer'
-  ADDR="$SKUNK_ADDRESS.$SKUNK_WORKER"
-
-  if [ $SKUNK_AUTOCONVERT_TO_BTC == "YES" ]
-  then
-    ADDR="$BTC_ADDRESS.$SKUNK_WORKER"
-
-    screen -dmSL miner $HCD -a skunk -o stratum+tcp://$SKUNK_POOL:$SKUNK_PORT -u $ADDR -p $ZPOOLPASS -i $SKUNK_INTENSITY
-  fi
-
-  if [ $SKUNK_AUTOCONVERT_TO_BTC == "NO" ]
-  then
-
-    screen -dmSL miner $HCD -a skunk -o stratum+tcp://$SKUNK_POOL:$SKUNK_PORT -u $ADDR -p c=SIGT -i $SKUNK_INTENSITY
-  fi
+  screen -dmSL miner $HCD -a skein -o stratum+tcp://$DGB_POOL:$DGB_PORT -u $ADDR -p $MINER_PWD -i $DGB_INTENSITY
 fi
 
 if [ $COIN == "LBC" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
-
-  screen -dmSL miner $HCD -a lbry -o stratum+tcp://$LBC_POOL:$LBC_PORT -u $ADDR -p x -i $LBC_INTENSITY
+  screen -dmSL miner $HCD -a lbry -o stratum+tcp://$LBC_POOL:$LBC_PORT -u $ADDR -p $MINER_PWD -i $LBC_INTENSITY
 fi
 
 if [ $COIN == "FTC" ]
 then
   HCD='/home/m1/SPccminer/ccminer'
   ADDR="$FTC_ADDRESS.$FTC_WORKER"
-
-  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$FTC_POOL:$FTC_PORT -u $ADDR -p x -i $FTC_INTENSITY
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$FTC_POOL:$FTC_PORT -u $ADDR -p $MINER_PWD -i $FTC_INTENSITY
 fi
+
+if [ $COIN == "TZC" ]
+then
+  HCD='/home/m1/SPccminer/ccminer'
+  ADDR="$TZC_ADDRESS.$TZC_WORKER"
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$TZC_POOL:$TZC_PORT -u $ADDR -p $MINER_PWD -i $TZC_INTENSITY
+fi
+
+if [ $COIN == "VIVO" ]
+then
+  HCD='/home/m1/SPccminer/ccminer'
+  ADDR="$VIVO_ADDRESS.$VIVO_WORKER"
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$VIVO_POOL:$VIVO_PORT -u $ADDR -p $MINER_PWD -i $VIVO_INTENSITY
+fi
+
 
 if [ $COIN == "KRB" ]
 then
   HCD='/home/m1/KTccminer-cryptonight/ccminer'
-  ADDR="$KRB_ADDRESS"
+  ADDR="$KRB_ADDRESS.$KRB_WORKER"
+  screen -dmSL miner $HCD -o stratum+tcp://$KRB_POOL:$KRB_PORT -u $ADDR -p $MINER_PWD
+fi
 
-  screen -dmSL miner $HCD -o stratum+tcp://$KRB_POOL:$KRB_PORT -u $ADDR -p x
+if [ $COIN == "ETN" ]
+then
+  HCD='/home/m1/KTccminer-cryptonight/ccminer'
+  ADDR="$ETN_ADDRESS.$ETN_WORKER"
+  screen -dmSL miner $HCD -o stratum+tcp://$ETN_POOL:$ETN_PORT -u $ADDR -p $MINER_PWD
 fi
 
 if [ $COIN == "ORB" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$ORB_ADDRESS.$ORB_WORKER"
-
-  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$ORB_POOL:$ORB_PORT -u $ADDR -p x -i $ORB_INTENSITY
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$ORB_POOL:$ORB_PORT -u $ADDR -p $MINER_PWD -i $ORB_INTENSITY
 fi
 
 if [ $COIN == "PXC" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$PXC_ADDRESS/$PXC_WORKER"
-
-  screen -dmSLL miner $HCD -a neoscrypt -o stratum+tcp://$PXC_POOL:$PXC_PORT  -u $ADDR -p x -i $PXC_INTENSITY
+  screen -dmSL miner $HCD -a neoscrypt -o stratum+tcp://$PXC_POOL:$PXC_PORT  -u $ADDR -p $MINER_PWD -i $PXC_INTENSITY
 fi
 
 if [ $COIN == "SIB" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$SIB_ADDRESS.$SIB_WORKER"
-
-  screen -dmSLL miner $HCD -a sib -o stratum+tcp://$SIB_POOL:$SIB_PORT -u $ADDR -p x -i $SIB_INTENSITY
+  screen -dmSL miner $HCD -a sib -o stratum+tcp://$SIB_POOL:$SIB_PORT -u $ADDR -p $MINER_PWD -i $SIB_INTENSITY
 fi
+
 if [ $COIN == "SIGT" ]
 then
   HCD='/home/m1/TPccminer/ccminer'
   ADDR="$SIGT_ADDRESS.$SIGT_WORKER"
+  screen -dmSL miner $HCD -a skunk -o stratum+tcp://$SIGT_POOL:$SIGT_PORT -u $ADDR -p $MINER_PWD -i $SIGT_INTENSITY
+fi
 
-  screen -dmSL miner $HCD -a skunk -o stratum+tcp://$SIGT_POOL:$SIGT_PORT -u $ADDR -p x -i $SIGT_INTENSITY
+if [ $COIN == "ALTCOM" ]
+then
+  HCD='/home/m1/TPccminer/ccminer'
+  ADDR="$ALTCOM_ADDRESS.$ALTCOM_WORKER"
+  screen -dmSL miner $HCD -a skunk -o stratum+tcp://$ALTCOM_POOL:$ALTCOM_PORT -u $ADDR -p $MINER_PWD -i $ALTCOM_INTENSITY
 fi
 
 if [ $COIN == "XMR" ]
@@ -535,6 +526,53 @@ EOF
 fi
 
 
+if [ $COIN == "PIRL" ]
+then
+
+  if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "GENOIL" ]
+  then
+    HCD='/home/m1/eth/Genoil-U/ethminer'
+
+    PIRLADDR="$PIRL_ADDRESS/$PIRL_WORKER"
+
+    if [ $DOT_POOL_FORMAT_or_FORWARD_SLASH_POOL_FORMAT == "DOT" ]
+    then
+      PIRLADDR="$PIRL_ADDRESS.$PIRL_WORKER"
+    fi
+
+    screen -dmSL miner $HCD -S $PIRL_POOL:$PIRL_PORT -O $PIRLADDR:x -SP 1 -U
+  fi
+
+  if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
+  then
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
+
+    PIRLADDR="$PIRL_ADDRESS/$PIRL_WORKER"
+
+    if [ $DOT_POOL_FORMAT_or_FORWARD_SLASH_POOL_FORMAT == "DOT" ]
+    then
+      PIRLADDR="$PIRL_ADDRESS.$PIRL_WORKER"
+    fi
+
+    screen -dmSL miner $HCD -S $PIRL_POOL:$PIRL_PORT -O $PIRLADDR:x -SP 1 -U
+  fi
+
+  if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
+  then
+
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
+
+    PIRLADDR="$PIRL_ADDRESS/$PIRL_WORKER"
+
+    if [ $DOT_POOL_FORMAT_or_FORWARD_SLASH_POOL_FORMAT == "DOT" ]
+    then
+      PIRLADDR="$PIRL_ADDRESS.$PIRL_WORKER"
+    fi
+
+    screen -dmSL miner $HCD -epool $PIRL_POOL:$PIRL_PORT -ewal $PIRLADDR -epsw x -mode 1 -allpools 1 -dbg -1 $PIRL_EXTENSION_ARGUMENTS
+  fi
+fi
+
 if [ $COIN == "UBQ" ]
 then
 
@@ -554,7 +592,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -569,7 +607,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -601,7 +639,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -616,7 +654,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -643,7 +681,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     EXPADDR="$EXP_ADDRESS/$EXP_WORKER"
 
@@ -658,7 +696,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     EXPADDR="$EXP_ADDRESS/$EXP_WORKER"
 
@@ -685,7 +723,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -700,7 +738,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -731,7 +769,7 @@ then
   fi
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     MPH_ETHASH_ADDR="$MPH_ADDRESS/$MPH_WORKER"
 
@@ -745,7 +783,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     MPH_ETHASH_ADDR="$MPH_ADDRESS/$MPH_WORKER"
 
@@ -772,7 +810,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
 
@@ -787,7 +825,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
 
@@ -809,7 +847,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -824,7 +862,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -837,7 +875,7 @@ then
   HCD='/home/m1/pasc/sgminer'
   ADDR="$DCR_ADDRESS.$DCR_WORKER"
 
-  screen -dmSL miner $HCD -k decred -o stratum+tcp://$DCR_POOL:$DCR_PORT -u $ADDR -p x -p x -I 21 -w 64 -g2
+  screen -dmSL miner $HCD -k decred -o stratum+tcp://$DCR_POOL:$DCR_PORT -u $ADDR -p $MINER_PWD  -I 21 -w 64 -g2
 fi
 
 if [ $COIN == "PASC" ]
@@ -845,7 +883,7 @@ then
   HCD='/home/m1/pasc/sgminer'
   ADDR="$PASC_ADDRESS..$PASC_WORKER"
 
-  screen -dmSL miner $HCD -k pascal -o $PASC_POOL:$PASC_PORT -u $ADDR -p x -p x -I 21 -w 64 -g2
+  screen -dmSL miner $HCD -k pascal -o $PASC_POOL:$PASC_PORT -u $ADDR  -p $MINER_PWD -I 21 -w 64 -g2
 fi
 
 if [ $COIN == "PASL" ]
@@ -853,7 +891,7 @@ then
   HCD='/home/m1/pasc/sgminer'
   ADDR="$PASL_ADDRESS..$PASL_WORKER"
 
-  screen -dmSL miner $HCD -k pascal -o stratum+tcp://$PASL_POOL:$PASL_PORT -u $ADDR -p x -p x -I 21 -w 64 -g2
+  screen -dmSL miner $HCD -k pascal -o stratum+tcp://$PASL_POOL:$PASL_PORT -u $ADDR  -p $MINER_PWD -I 21 -w 64 -g2
 fi
 
 if [ $COIN == "SIA" ]
@@ -861,13 +899,13 @@ then
   HCD='/home/m1/SPccminer/ccminer'
   SCADDR="$SC_ADDRESS/$SC_WORKER"
 
-  screen -dmSL miner $HCD -a sia -o $SC_GW_POOL:$SC_GW_PORT -u $SCADDR -p x
+  screen -dmSL miner $HCD -a sia -o $SC_GW_POOL:$SC_GW_PORT -u $SCADDR -p $MINER_PWD
 fi
 
 if [ $COIN == "DUAL_NICEHASH" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHASH_ADDR="$DUAL_BTC_ADDRESS.$DUAL_WORKER"
   DCR_ADDR="$DUAL_BTC_ADDRESS.$DUAL_WORKER"
@@ -878,7 +916,7 @@ fi
 if [ $COIN == "DUAL_ETC_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -895,7 +933,7 @@ fi
 if [ $COIN == "DUAL_ETC_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -912,7 +950,7 @@ fi
 if [ $COIN == "DUAL_ETC_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -929,7 +967,7 @@ fi
 if [ $COIN == "DUAL_ETC_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -940,13 +978,13 @@ then
 
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $ETC_POOL:$ETC_PORT -ewal $ETCADDR -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $ETC_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $ETC_POOL:$ETC_PORT -ewal $ETCADDR -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $ETC_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_ETC_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETCADDR="$ETC_ADDRESS/$ETC_WORKER"
 
@@ -963,7 +1001,7 @@ fi
 if [ $COIN == "DUAL_EXP_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   EXPADDR="$EXP_ADDRESS/$EXP_WORKER"
   DADDR="$DCR_ADDRESS.$DCR_WORKER"
@@ -974,7 +1012,7 @@ fi
 if [ $COIN == "DUAL_EXP_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   EXPADDR="$EXP_ADDRESS.$EXP_WORKER"
   ADDR="$PASC_ADDRESS..$PASC_WORKER"
@@ -985,7 +1023,7 @@ fi
 if [ $COIN == "DUAL_EXP_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   EXPADDR="$EXP_ADDRESS.$EXP_WORKER"
   ADDR="$PASL_ADDRESS..$PASL_WORKER"
@@ -996,18 +1034,18 @@ fi
 if [ $COIN == "DUAL_EXP_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   EXPADDR="$EXP_ADDRESS/$EXP_WORKER"
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $EXP_POOL:$EXP_PORT -ewal $EXPADDR -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $EXP_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $EXP_POOL:$EXP_PORT -ewal $EXPADDR -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $EXP_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_EXP_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   EXPADDR="$EXP_ADDRESS/$EXP_WORKER"
   SCADDR="$SC_ADDRESS/$SC_WORKER"
@@ -1018,7 +1056,7 @@ fi
 if [ $COIN == "DUAL_MUSIC_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
   DADDR="$DCR_ADDRESS.$DCR_WORKER"
@@ -1029,7 +1067,7 @@ fi
 if [ $COIN == "DUAL_MUSIC_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
   ADDR="$PASC_ADDRESS..$PASC_WORKER"
@@ -1040,7 +1078,7 @@ fi
 if [ $COIN == "DUAL_MUSIC_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
   ADDR="$PASL_ADDRESS..$PASL_WORKER"
@@ -1051,18 +1089,18 @@ fi
 if [ $COIN == "DUAL_MUSIC_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $MUSIC_POOL:$MUSIC_PORT -ewal $MUSICADDR -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $MUSIC_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $MUSIC_POOL:$MUSIC_PORT -ewal $MUSICADDR -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $MUSIC_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_MUSIC_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   MUSICADDR="$MUSIC_ADDRESS/$MUSIC_WORKER"
   SCADDR="$SC_ADDRESS/$SC_WORKER"
@@ -1073,7 +1111,7 @@ fi
 if [ $COIN == "DUAL_ETH_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -1090,7 +1128,7 @@ fi
 if [ $COIN == "DUAL_ETH_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -1107,7 +1145,7 @@ fi
 if [ $COIN == "DUAL_ETH_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -1124,7 +1162,7 @@ fi
 if [ $COIN == "DUAL_ETH_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -1135,13 +1173,13 @@ then
 
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $ETH_POOL:$ETH_PORT -ewal $ETHADDR -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $ETH_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $ETH_POOL:$ETH_PORT -ewal $ETHADDR -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $ETH_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_ETH_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   ETHADDR="$ETH_ADDRESS/$ETH_WORKER"
 
@@ -1158,7 +1196,7 @@ fi
 if [ $COIN == "DUAL_SOIL_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -1175,7 +1213,7 @@ fi
 if [ $COIN == "DUAL_SOIL_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -1192,7 +1230,7 @@ fi
 if [ $COIN == "DUAL_SOIL_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -1209,7 +1247,7 @@ fi
 if [ $COIN == "DUAL_SOIL_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -1220,13 +1258,13 @@ then
 
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $SOIL_POOL:$SOIL_PORT -ewal $SOIL_ADDRESS -eworker $SOIL_WORKER -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dpsw x $SOIL_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $SOIL_POOL:$SOIL_PORT -ewal $SOIL_ADDRESS -eworker $SOIL_WORKER -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dpsw x $SOIL_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_SOIL_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   SOILADDR="$SOIL_ADDRESS/$SOIL_WORKER"
 
@@ -1243,7 +1281,7 @@ fi
 if [ $COIN == "DUAL_UBQ_DCR" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -1260,7 +1298,7 @@ fi
 if [ $COIN == "DUAL_UBQ_PASC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -1277,7 +1315,7 @@ fi
 if [ $COIN == "DUAL_UBQ_PASL" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -1294,7 +1332,7 @@ fi
 if [ $COIN == "DUAL_UBQ_LBC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -1305,13 +1343,13 @@ then
 
   ADDR="$LBC_ADDRESS.$LBC_WORKER"
 
-  screen -dmSL miner $HCD -epool $UBQ_POOL:$UBQ_PORT -ewal $UBQ_ADDRESS -eworker $UBQ_WORKER -epsw x -dpool stratum+tcp://$LBCL_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $UBQ_EXTENSION_ARGUMENTS
+  screen -dmSL miner $HCD -epool $UBQ_POOL:$UBQ_PORT -ewal $UBQ_ADDRESS -eworker $UBQ_WORKER -epsw x -dpool stratum+tcp://$LBC_POOL:$LBC_PORT -dwal $ADDR -dpsw x -dcoin lbc -allcoins 1 -allpools 1 -dbg -1 $UBQ_EXTENSION_ARGUMENTS
 fi
 
 if [ $COIN == "DUAL_UBQ_SC" ]
 then
 
-  HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+  HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
   UBQADDR="$UBQ_ADDRESS/$UBQ_WORKER"
 
@@ -1339,7 +1377,7 @@ then
 
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "ETHMINER" ]
   then
-    HCD='/home/m1/eth/ethminer_12dev2/ethminer'
+    HCD='/home/m1/eth/ethminer/latest/ethminer'
 
     NICEADDR="$BTC_ADDRESS.$NICE_ETHASH_WORKER"
 
@@ -1349,7 +1387,7 @@ then
   if [ $ETHMINER_or_GENOIL_or_CLAYMORE == "CLAYMORE" ]
   then
 
-    HCD=/home/m1/eth/$CLAYMORE_VERSION/ethdcrminer64
+    HCD=/home/m1/eth/claymore/$CLAYMORE_VERSION/ethdcrminer64
 
     NICEADDR="$BTC_ADDRESS.$NICE_ETHASH_WORKER"
 

@@ -2,7 +2,7 @@
 
 Open oneBash and copy the contents to your oneBash file before coin selection
 
-Copy wtm_auto_switch, WTM_SWITCHER and WTM.json to /home/m1/oneBash
+Copy wtm_auto_switch, WTM_SWITCHER and WTM.json to /home/m1/
 
 Set your coins, url and ... 
 

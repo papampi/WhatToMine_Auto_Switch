@@ -1,0 +1,93 @@
+#!/bin/bash
+
+##########################################################################
+##########################################################################
+#################   nvOC v0019-2.0 - Community Release   #################
+##############        by papampi, Stubo and leenoox         ##############
+##########   Based on the original nvOC v0019-1.4 by fullzero   ##########
+##########################################################################
+##########################################################################
+
+# WhatToMine.com Auto Switch by papampi
+# for nvOC v0019-2.0 - Community Release
+
+
+# DEV Mod Log:
+#
+# v=0001 : papampi: Initial Revision for rxOC
+
+
+
+
+nvOC_Ver="nvOC v0019-2.0 - Community Release"
+wtm_auto_switch_ver="v0019-2.0.0001"   # Do not edit this
+
+echo ""
+echo ""
+echo "WhatToMine.com Auto Switch $wtm_auto_switch_ver by papampi"
+echo ""
+
+source /home/m1/oneBash
+CURRENT_COIN=$COIN
+
+# Creating a log file to record coin switch
+LOG_FILE="/home/m1/8_wtmautoswitchlog"
+if [[ -e "$LOG_FILE" ]] ; then
+  #Limit the logfile, just keep the last 5K
+  echo "$(cat $LOG_FILE | tail -n 5k)" > $LOG_FILE
+fi
+
+WTM_HISTORY="/home/m1/WTM_switch_history"
+if [[ -e "$WTM_HISTORY" ]] ; then
+  #Limit the logfile, just keep the last 100 lines
+  echo "$(cat $WTM_HISTORY | tail -n 100)" > $WTM_HISTORY
+fi
+
+# Check last top coin and change if not in coin list any more
+FIRST_COIN="$(echo $WTM_AUTO_SWITCH_COINS |  awk -F'[_;]' '{print $1}')"
+TOP_COIN=$(cat /home/m1/WTM_top_coin | sed 's/:[0-9]*//')
+if [ -z $(echo $WTM_AUTO_SWITCH_COINS | grep $TOP_COIN) ]
+then
+  echo "Last top coin not in current coin list any more, Switch to 1st coin"
+  sed -i "s/${TOP_COIN}/${FIRST_COIN}/g" /home/m1/WTM_top_coin
+fi
+
+while true
+do
+
+    python2.7 '/home/m1/WTM_SWITCHER' /home/m1/WTM.json  | tee -a $LOG_FILE
+    sleep 5
+    source /home/m1/oneBash  # source oneBash again in case it was edited between our timer checks
+    CURRENT_COIN=$COIN
+    TOP_COIN=$(cat /home/m1/WTM_top_coin | sed 's/:[0-9]*//')
+    TIMEIN=$WTM_AUTO_SWITCH_SYNC_INTERVAL
+    TIMEOUT=$(($TIMEIN * 60))
+
+    if [[ "$CURRENT_COIN" != "$TOP_COIN" ]]; then
+      sed -i '/^#/!s/'COIN=\"$CURRENT_COIN\"'/'COIN=\"$TOP_COIN\"/'' /home/m1/oneBash
+      cat /home/m1/WTM_current_revenue | grep `cat /home/m1/WTM_top_coin | awk -F: '{print $1}'` | awk -F: '{print $2}' >> /home/m1/WTM_24H_REV
+      SYNC_COUNT=$((`expr 1440 / $WTM_AUTO_SWITCH_SYNC_INTERVAL`))
+      echo "$(tail -$SYNC_COUNT WTM_24H_REV)" > /home/m1/WTM_24H_REV
+      sed -i '/^$/d' /home/m1/WTM_24H_REV
+      sleep 1
+      echo "Current Coin Algo: $CURRENT_COIN_ALGORITHM" | tee -a $LOG_FILE
+      echo "Current Coin: $CURRENT_COIN" | tee -a $LOG_FILE
+      echo "Top Coin Algo: $TOP_COIN_ALGORITHM" | tee -a $LOG_FILE
+      echo "Top Coin: $TOP_COIN" | tee -a $LOG_FILE
+	    pkill -f oneBash
+      sleep $TIMEOUT
+    else
+      echo "$(date) - Same Coin on Top, Continue mining $CURRENT_COIN"   | tee -a $LOG_FILE
+      echo "24 Hour Average Revenue: $(awk '{s+=$1}END{print "",s/NR}' RS="\n"  /home/m1/WTM_24H_REV) $WTM_CURRENCY"
+      echo "Check again in $TIMEOUT seconds" | tee -a $LOG_FILE
+      echo "" | tee -a $LOG_FILE
+      echo "" | tee -a $LOG_FILE
+      sleep 1
+      cat /home/m1/WTM_current_revenue | grep `cat /home/m1/WTM_top_coin | awk -F: '{print $1}'` | awk -F: '{print $2}' >> /home/m1/WTM_24H_REV
+      SYNC_COUNT=$((`expr 1440 / $WTM_AUTO_SWITCH_SYNC_INTERVAL`))
+      echo "$(tail -$SYNC_COUNT WTM_24H_REV)" > /home/m1/WTM_24H_REV
+      sed -i '/^$/d' /home/m1/WTM_24H_REV
+      sleep $TIMEOUT
+    fi
+
+done

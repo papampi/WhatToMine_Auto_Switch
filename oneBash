@@ -1,0 +1,52 @@
+######################## WTM_AUTO_SWITCH ############################
+#####################################################################
+
+# note!! all selected COINS must HAVE ADDRESSES in the coin section below
+# select which coins you want to mine 
+
+WTM_AUTO_SWITCH="YES"
+
+WTM_AUTO_SWITCH_COINS="ETH;ZEC;ZEN;BTG;XMR"  # Coins to check profit and make the switch with format "ZEC;ETH;ETC;XMR"
+
+WTM_AUTO_SWITCH_SYNC_INTERVAL="3"            # Time to sync with WTM for best coin, minimum 3 minutes.
+
+WTM_PROFIT_CHECK_INTERVAL="30"               # interval between checking profit for web info
+
+WTM_MIN_DIFFERENCE="8"                       # Minimum difference in percent when switch to new coin, to prevent too many switches.
+
+WTM_CURRENCY="USD"                           # USD, AUD, BRL, CAD, CHF, CLP, CNY, DKK, EUR, GBP, HKD, INR, ISK, JPY, KRW, NZD, PLN, RUB, SEK, SGD, THB, TWD
+
+WTM_AUTO_SWITCH_URL="https://whattomine.com/coins.json"  
+
+# Read below for how to change the url
+
+# Go to [ https://whattomine.com/coins ] select your cards, hash rate, power, algos, exchanges, ...
+# Set "Sort by" and "Difficulty for Revenue" to "Current profit" and "Current dificulty" ... "last 24, 3 days,...  " are not good for auto switch.
+# Click calculate, and wait for page to load, copy the new url and add .json to /coins at the begining of the url.
+# like this " https://whattomine.com/coins.json?utf8=✓&adapt....."
+# Above url is for 3x480
+
+if [ $WTM_AUTO_SWITCH == "YES" ]
+then
+  echo ""
+  echo "LAUNCHING:  WTM AUTO SWITCH "
+  echo ""
+  cat <<EOF >/home/m1/WTM.json
+{
+ "WTM_URL": "$WTM_AUTO_SWITCH_URL",
+ "WTM_COINS": "$WTM_AUTO_SWITCH_COINS",
+ "WTM_MIN_DIFFERENCE": "$WTM_MIN_DIFFERENCE",
+ "currency":"$WTM_CURRENCY"
+}
+EOF
+  HCD='/home/m1/wtm_auto_switch'
+  running=$(ps -ef | awk '$NF~"wtm_auto_switch" {print $2}')
+  if [ "$running" == "" ]
+  then
+    guake -n $HCD -r WTM_AUTO_SWITCH -e "bash /home/m1/wtm_auto_switch"
+    running=""
+  fi
+fi
+	
+######################################################################
+#####################################################################

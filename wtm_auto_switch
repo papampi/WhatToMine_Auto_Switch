@@ -31,7 +31,7 @@ source /home/m1/oneBash
 CURRENT_COIN=$COIN
 
 # Creating a log file to record coin switch
-LOG_FILE="/home/m1/8_wtmautoswitchlog"
+LOG_FILE="/home/m1/wtmautoswitchlog"
 if [[ -e "$LOG_FILE" ]] ; then
   #Limit the logfile, just keep the last 5K
   echo "$(cat $LOG_FILE | tail -n 5k)" > $LOG_FILE

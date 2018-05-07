@@ -20,23 +20,17 @@ import requests
 import sys
 import urllib
 import urllib2
+#configFile = "/home/m1/WTM.json"
+topCoinLogFile = "/home/m1/WTM_top_coin"
 
 # load config
-try:
-    configFile = sys.argv[1]
-except:
-    configFile = "WTM.json"
-
-cfg = json.loads(open(configFile).read())
-
-outputDir=cfg["output_dir"]
+#cfg = json.loads(open(configFile).read())
+cfg=json.loads(open(sys.argv[1]).read())
 requestUrl = urllib.unquote(urllib.unquote(cfg["WTM_URL"]))
 minimumDifference = float(cfg["WTM_MIN_DIFFERENCE"])
 includedCoins = cfg["WTM_COINS"].upper()
 delimiter = ";"
 currency=cfg["currency"]
-
-topCoinLogFile = outputDir + "/WTM_top_coin"
 
 # load included coins
 includedCoins = includedCoins.strip(delimiter)
@@ -57,6 +51,8 @@ def saveTopCoin(data):
 #Get BTC exchange rate from blockchain.info
 try:
     exchrate=float(json.loads(urllib2.urlopen("https://blockchain.info/ticker").read())[currency]["last"])
+
+    print exchrate
 except:
     print("Can not get data from blockchain.info")
     sys.exit()
@@ -64,7 +60,7 @@ except:
 
 #BTC Rates for web, output, ...
 print "BTC PRICE: " + str(exchrate) + " " + str(currency)
-exchrateLog = open(outputDir + "/WTM_BTC_EXCHANGE_RATE", "w")
+exchrateLog = open("WTM_BTC_EXCHANGE_RATE", "w")
 exchrateLog.write(str(exchrate) + " " + str(currency))
 exchrateLog.close()
 
@@ -101,7 +97,7 @@ for i in filter(lambda x: data[x]["tag"] not in includedCoins, data):
     data.pop(i)
 
 #save current revenue
-RevLog = open(outputDir + "/WTM_current_revenue", "w")
+RevLog = open("WTM_current_revenue", "w")
 for i in data:
     RevLog.write("%s:%02.2f\n" % (data[i]["tag"], float(data[i]["btc_revenue"])*exchrate) )
     print  '%s %02.2f %s' % (data[i]["tag"], float(data[i]["btc_revenue"])*exchrate, currency)
@@ -109,7 +105,7 @@ RevLog.close()
 
 # save current profit
 print "New profits"
-profitLog = open(outputDir + "/WTM_current_profit", "w")
+profitLog = open("WTM_current_profit", "w")
 for i in data:
     profitLog.write("%s:%s\n" % (data[i]["tag"], data[i]["profitability"]))
     print "%s: %s %%" % (data[i]["tag"], data[i]["profitability"])

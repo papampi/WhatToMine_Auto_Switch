@@ -43,7 +43,7 @@ EOF
   running=$(ps -ef | awk '$NF~"wtm_auto_switch" {print $2}')
   if [ "$running" == "" ]
   then
-    guake -n $HCD -r WTM_AUTO_SWITCH -e "bash /home/m1/wtm_auto_switch"
+    screen  -dmS wtm  bash /home/m1/wtm_auto_switch
     running=""
   fi
 fi
